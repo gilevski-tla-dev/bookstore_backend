@@ -4,8 +4,9 @@ import { BookService } from './book.service';
 @Controller('book')
 export class BookController {
   constructor(private bookService: BookService) {}
-  @Get()
-  getBook() {
-    return this.bookService.getBooks();
+  @Get('get-all-books')
+  async getAllUsers() {
+    const books = await this.bookService.findAll();
+    return books;
   }
 }
