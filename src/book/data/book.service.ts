@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Book } from 'src/entities/Book';
+import { Book } from 'src/book/domain/Book';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -11,6 +11,6 @@ export class BookService {
   ) {}
 
   findAll(): Promise<Book[]> {
-    return this.booksRepository.find();
+    return this.booksRepository.find({ relations: ['author'] });
   }
 }

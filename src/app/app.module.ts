@@ -4,13 +4,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from 'src/user/user.module';
 import { BookModule } from 'src/book/book.module';
-import { User } from 'src/entities/User';
-import { Book } from 'src/entities/Book';
+import { User } from 'src/user/domain/User';
+import { Book } from 'src/book/domain/Book';
+import { AuthorModule } from 'src/author/author.module';
+import { Author } from 'src/author/domain/Author';
 
 @Module({
   imports: [
     UserModule,
     BookModule,
+    AuthorModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -18,7 +21,7 @@ import { Book } from 'src/entities/Book';
       username: 'postgres',
       password: 'admin',
       database: 'book_store',
-      entities: [User, Book],
+      entities: [User, Book, Author],
       synchronize: true,
     }),
   ],
