@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { BookService } from '../data/book.service';
 
 @Controller()
@@ -6,8 +6,13 @@ export class BookController {
   constructor(private bookService: BookService) {}
 
   @Get('books')
-  async getAllUsers() {
-    const books = await this.bookService.findAll();
+  async getAllBooks(
+    @Query('author') author: string,
+    @Query('from') from: number,
+    @Query('to') to: number,
+    @Query('search') search: string,
+  ) {
+    const books = await this.bookService.findAll(author, from, to, search);
     return books;
   }
 
