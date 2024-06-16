@@ -13,4 +13,11 @@ export class BookService {
   findAll(): Promise<Book[]> {
     return this.booksRepository.find({ relations: ['author'] });
   }
+
+  findOne(id: string): Promise<Book> {
+    return this.booksRepository.findOneOrFail({
+      where: { id },
+      relations: ['author'],
+    });
+  }
 }
