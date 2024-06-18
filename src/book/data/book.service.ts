@@ -11,6 +11,7 @@ export class BookService {
   ) {}
 
   async findAll(
+    id?: string,
     author?: string,
     from?: number,
     to?: number,
@@ -19,6 +20,10 @@ export class BookService {
     const query = this.booksRepository.createQueryBuilder('book');
 
     query.leftJoinAndSelect('book.author', 'author');
+
+    if (id) {
+      query.andWhere('book.id = :id', { id });
+    }
 
     if (author) {
       query.andWhere('author.name = :author', { author });
@@ -33,12 +38,5 @@ export class BookService {
     }
 
     return query.getMany();
-  }
-
-  findOne(id: string): Promise<Book> {
-    return this.booksRepository.findOneOrFail({
-      where: { id },
-      relations: ['author'],
-    });
   }
 }
