@@ -39,4 +39,11 @@ export class BookService {
 
     return query.getMany();
   }
+
+  findOne(id: string): Promise<Book> {
+    return this.booksRepository.findOneOrFail({
+      where: { id },
+      relations: ['author'],
+    });
+  }
 }
